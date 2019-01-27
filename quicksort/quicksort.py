@@ -1,9 +1,4 @@
-def helper(nums, low, high):
-    origin_low = low
-    origin_high = high
-    n = high - low
-    if n < 1:
-        return
+def partition(nums, low, high):
     pivot = low
     low = low + 1
     while low <= high:
@@ -17,9 +12,14 @@ def helper(nums, low, high):
         low += 1
         high -= 1
     nums[pivot], nums[high] = nums[high], nums[pivot]
-    middle = high
-    helper(nums, origin_low, middle-1)
-    helper(nums, middle+1, origin_high)
+    return high
+
+def helper(nums, low, high):
+    if low >= high:
+        return
+    middle = partition(nums, low, high)
+    helper(nums, low, middle-1)
+    helper(nums, middle+1, high)
 
 def sort(nums):
     helper(nums, 0, len(nums)-1)
