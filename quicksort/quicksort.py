@@ -2,22 +2,20 @@ def helper(nums, low, high):
     origin_low = low
     origin_high = high
     n = high - low
-    if n <= 1:
+    if n < 1:
         return
     pivot = low
     low = low + 1
     while low <= high:
-        if nums[low] > nums[pivot] > nums[high]:
-            nums[high], nums[low] = nums[low], nums[high]
-            high -= 1
-            low += 1
-            continue
         if nums[high] >= nums[pivot]:
             high -= 1
             continue
         if nums[low] <= nums[pivot]:
             low += 1
             continue
+        nums[high], nums[low] = nums[low], nums[high]
+        low += 1
+        high -= 1
     nums[pivot], nums[high] = nums[high], nums[pivot]
     middle = high
     helper(nums, origin_low, middle-1)
